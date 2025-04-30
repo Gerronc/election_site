@@ -2,28 +2,25 @@ pipeline {
     agent any
 
     environment {
-        EC2_USER = "ubuntu"  // Or ubuntu, depending on your AMI
-        EC2_HOST = "34.201.25.109"
-        EC2_KEY = credentials('ec2-ssh-private-key')  // Jenkins credential with SSH private key
-        PROJECT_DIR = "/home/ubuntu/pytests"  // Path to your Django app
-        
+        EC2_USER = "ubuntu"  // Assuming you're using the default Ubuntu AMI
+        EC2_HOST = "3.15.145.112"
+        EC2_KEY = credentials('ec2-ssh-private-key')  // Replace with your actual Jenkins credential ID
+        PROJECT_DIR = "/home/ubuntu/your_project_directory"  // Change to your actual Django project folder
     }
 
-    //triggers {
-      //  githubPush()  // Enables webhook triggering
-    //}
-    
+    triggers {
+        githubPush()  // This will trigger the job when you push to GitHub (requires webhook setup)
+    }
+
     stages {
-        stage('Update Code on EC2') {
+        stage('Deploy Django App') {
             steps {
                 script {
-                    // Use SSH to run commands on the EC2 instance
                     sshagent (credentials: ['ec2-ssh-private-key']) {
                         sh """
                         ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} '
                             cd ${PROJECT_DIR}
-                            git clone https://github.com/kestonbhola/django_polls.git
-                            python3 -m venv comp314
+                            git pull origin main
                             source comp314/bin/activate
                             pip install -r requirements.txt
                             python3 manage.py migrate
@@ -39,10 +36,10 @@ pipeline {
 
     post {
         success {
-            echo "Code updated and app restarted successfully on EC2!"
+            echo "✅ Deployment successful!"
         }
         failure {
-            echo "Deployment failed."
+            echo "❌ Deployment failed."
         }
     }
 }
