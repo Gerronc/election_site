@@ -5,7 +5,7 @@ pipeline {
         EC2_USER = "ubuntu"  // Assuming you're using the default Ubuntu AMI
         EC2_HOST = "3.15.145.112"
         EC2_KEY = credentials('ec2-ssh-private-key')  // Replace with your actual Jenkins credential ID
-        PROJECT_DIR = "/home/ubuntu/your_project_directory"  // Change to your actual Django project folder
+        PROJECT_DIR = "/home/ubuntu/election_site"  // Change to your actual Django project folder
     }
 
     triggers {
