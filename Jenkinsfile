@@ -1,3 +1,18 @@
+stage('🔧 SSH Test to EC2') {
+    steps {
+        script {
+            echo "Attempting SSH connection to EC2..."
+            sshagent (credentials: ['ec2-ssh-private-key']) {
+                sh """
+                    ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'echo "✅ EC2 SSH connection successful!"'
+                """
+            }
+        }
+    }
+}
+
+
+
 pipeline {
     agent any
 
