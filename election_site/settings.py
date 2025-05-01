@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-*a6)&t((vsh0&-y+3&^_f93-&=%hjfjlyh%8$=4=s+u7%qn_7z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['3.15.145.112']
 
 # Application definition
 
@@ -40,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vote',
 ]
-
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
