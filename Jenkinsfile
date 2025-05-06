@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         EC2_USER = "ubuntu"
-        EC2_HOST = "3.15.145.112"
+        EC2_HOST = "3.137.162.207"
         EC2_KEY = credentials('ec2-ssh-private-key')
         PROJECT_DIR = "/home/ubuntu/election_site"
     }
